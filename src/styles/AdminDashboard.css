@@ -1,0 +1,52 @@
+.admin-dashboard {
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .car-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .car-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 250px;
+  }
+  
+  .car-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .car-info {
+    padding: 10px;
+  }
+  
+  .car-info h2 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .car-info p {
+    margin: 5px 0;
+  }
+  
+  button {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
