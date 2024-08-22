@@ -1,14 +1,15 @@
 import React from 'react';
-import { CarProvider } from './context/CarContext'; // Adjust the path as needed
-import YourRoutes from './routes/YourRoutes'; // Adjust the path as needed
+import { CarProvider } from '../Context/CarContext';
+import CarListing from '../pages/CarListing';
+import AdminDashboard from '../pages/AdminDashboard';
 
 const App = () => {
   return (
     <CarProvider>
-      <YourRoutes />
+      <AdminDashboard />
+      <CarListing />
     </CarProvider>
   );
 };
 
 export default App;
-

@@ -9,17 +9,14 @@ const quickLinks = [
     display: "About",
   },
   {
-    path: "#",
-    display: "Privacy Policy",
+    path: "/CarRentalPolicy",
+    display: "Car Rental Policy",
   },
   {
     path: "/cars",
     display: "Car Listing",
   },
-  {
-    path: "/blogs",
-    display: "Blog",
-  },
+
   {
     path: "/contact",
     display: "Contact",

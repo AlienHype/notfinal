@@ -40,7 +40,7 @@ const Home = () => {
             <Col lg="12" className="text-center mb-5">
               <h6 className="section__subtitle">Come with</h6>
               <h2 className="section__title">Hot Offers</h2>
-            </Col>
+            </Col> 
 
             {carData.slice(0, 6).map((item) => (
               <CarItem item={item} key={item.id} />

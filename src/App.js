@@ -1,8 +1,13 @@
-import Layout from "./components/Layout/Layout";
+import React from 'react';
+import { CarProvider } from './Context/CarContext';
+import Layout from './components/Layout/Layout';
 
 function App() {
-  return <Layout />;
+  return (
+    <CarProvider>
+      <Layout />
+    </CarProvider>
+  );
 }
 
 export default App;
-

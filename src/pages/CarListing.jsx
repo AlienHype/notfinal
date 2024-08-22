@@ -6,6 +6,7 @@ import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
 
 const CarListing = () => {
+  
   return (
     <Helmet title="Cars">
       <CommonSection title="Car Listing" />

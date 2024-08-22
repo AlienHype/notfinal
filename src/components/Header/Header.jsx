@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { auth } from "./firebase-config";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaShoppingCart } from 'react-icons/fa'; // Import the cart icon
+
 import "../../styles/header.css";
 
 const navLinks = [
@@ -13,6 +13,7 @@ const navLinks = [
   { path: "/about", display: "About" },
   { path: "/cars", display: "Cars" },
   { path: "/contact", display: "Contact" },
+  { path: "#", display: "Car Rental Policy" },
 ];
 
 const Header = () => {
@@ -21,7 +22,7 @@ const Header = () => {
   const [registerModal, setRegisterModal] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
-  const [user, setUser] = useState(null); // State to handle user
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,10 +36,14 @@ const Header = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    const firstName = event.target.firstName.value;
+    const lastName = event.target.lastName.value;
+    const phoneNumber = event.target.phoneNumber.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      // Save additional information to your database if needed (firstName, lastName, phoneNumber)
       setRegisterModal(false);
       toast.success('Registration successful!');
     } catch (error) {
@@ -53,12 +58,11 @@ const Header = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-  
-      // Redirect based on user email
+
       if (user.email === 'hyperentals01@gmail.com') {
-        navigate('/AdminDashboard'); // Redirect to Admin Dashboard
+        navigate('/AdminDashboard');
       } else {
-        navigate('/Cars'); // Redirect to Car Listing
+        navigate('/Cars');
       }
       setLoginModal(false);
       toast.success(`Welcome back, ${user.email}`);
@@ -70,7 +74,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      localStorage.removeItem('user'); // Clear local storage
+      localStorage.removeItem('user');
       document.cookie.split(";").forEach((c) => {
         document.cookie = c.trim().replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 GMT");
       });
@@ -91,7 +95,7 @@ const Header = () => {
               <div className="header__top__left">
                 <span>Need Help?</span>
                 <span className="header__top__help">
-                  <i className="ri-phone-fill"></i> +230 52612062
+                  <i className="ri-phone-fill"></i> +230 57543730
                 </span>
               </div>
             </Col>
@@ -127,7 +131,6 @@ const Header = () => {
       <div className="header__middle">
         <Container>
           <Row>
-            {/* Logo */}
             <Col lg="4" md="3" sm="4">
               <div className="logo">
                 <h1>
@@ -141,7 +144,6 @@ const Header = () => {
               </div>
             </Col>
 
-            {/* Location */}
             <Col lg="3" md="3" sm="4">
               <div className="header__location d-flex align-items-center gap-2">
                 <span>
@@ -154,7 +156,6 @@ const Header = () => {
               </div>
             </Col>
 
-            {/* Opening Hours */}
             <Col lg="3" md="3" sm="4">
               <div className="header__location d-flex align-items-center gap-2">
                 <span>
@@ -167,7 +168,6 @@ const Header = () => {
               </div>
             </Col>
 
-            {/* Request a Call Button and Cart Icon */}
             <Col lg="2" md="3" sm="0" className="d-flex align-items-center justify-content-end">
               <div className="d-flex align-items-center gap-3">
                 <Button className="header__btn btn">
@@ -180,7 +180,6 @@ const Header = () => {
                     <i className="ri-phone-line"></i> Request a call
                   </a>
                 </Button>
-                <FaShoppingCart size={24} className="cart-icon" />
               </div>
             </Col>
           </Row>
@@ -191,12 +190,10 @@ const Header = () => {
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
-            {/* Mobile Menu Icon */}
             <span className="mobile__menu">
               <i className="ri-menu-line" onClick={toggleMenu}></i>
             </span>
 
-            {/* Navigation Links */}
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <div className="menu">
                 {navLinks.map((item, index) => (
@@ -242,8 +239,16 @@ const Header = () => {
           {registerError && <Alert color="danger">{registerError}</Alert>}
           <Form onSubmit={handleRegister}>
             <FormGroup>
-              <Label for="fullName">Full Name</Label>
-              <Input type="text" name="fullName" id="fullName" placeholder="Enter your full name" required />
+              <Label for="firstName">First Name</Label>
+              <Input type="text" name="firstName" id="firstName" placeholder="Enter your first name" required />
+            </FormGroup>
+            <FormGroup>
+              <Label for="lastName">Last Name</Label>
+              <Input type="text" name="lastName" id="lastName" placeholder="Enter your last name" required />
+            </FormGroup>
+            <FormGroup>
+              <Label for="phoneNumber">Phone Number</Label>
+              <Input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Enter your phone number" required />
             </FormGroup>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -257,7 +262,6 @@ const Header = () => {
           </Form>
         </ModalBody>
       </Modal>
-
       <ToastContainer />
     </header>
   );

@@ -34,7 +34,7 @@ const AdminDashboard = () => {
               <h2>{car.carName}</h2>
               <p>Brand: {car.brand}</p>
               <p>Model: {car.model}</p>
-              <p>Price: ${car.price}</p>
+              <p>Price: Rs{car.price}</p>
               <p>Speed: {car.speed}</p>
               <p>GPS: {car.gps}</p>
               <p>Seats: {car.seatType}</p>

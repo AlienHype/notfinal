@@ -48,9 +48,8 @@ const PaymentMethod = () => {
         </label>
       </div>
 
-      <div className="payment text-end mt-5">
-        <button onClick={handleReserveClick}>Reserve Now</button> {/* Add click handler */}
-      </div>
+      
+
     </>
   );
 };

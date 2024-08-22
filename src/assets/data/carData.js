@@ -12,6 +12,7 @@ const carData = [
   {
     id: 1,
     brand: "Ford",
+    available: true,
     rating: 112,
     carName: "Ford Range F150",
     imgUrl: img01,
@@ -28,6 +29,7 @@ const carData = [
   {
     id: 2,
     brand: "Toyota",
+    available: true,
     rating: 102,
     carName: "Toyota Yaris GR",
     imgUrl: img02,
@@ -44,6 +46,7 @@ const carData = [
   {
     id: 3,
     brand: "BMW",
+    available: true,
     rating: 132,
     carName: "BMW M5 CS",
     imgUrl: img03,

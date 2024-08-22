@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import "../../styles/booking-form.css";
 import { Form, FormGroup, Label } from "reactstrap";
-import PaymentMethod from "./PaymentMethod";
+import { auth } from "../../firebase-config"; // Import auth from your Firebase config
+import { onAuthStateChanged } from "firebase/auth"; // Import Firebase Auth state change listener
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,21 @@ const BookingForm = () => {
     paymentMethod: "",
   });
 
+  useEffect(() => {
+    // Listen for authentication state changes
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, set their information in the form
+        setFormData({
+          ...formData,
+          email: user.email || "",
+          firstName: user.displayName?.split(" ")[0] || "",
+          lastName: user.displayName?.split(" ")[1] || "",
+        });
+      }
+    });
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,14 +40,28 @@ const BookingForm = () => {
     });
   };
 
+  const handlePaymentChange = (paymentMethod) => {
+    setFormData({
+      ...formData,
+      paymentMethod,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const serviceID = "service_m6e332l"; // Replace with your EmailJS service ID
-    const templateID = "template_0jcktw1"; // Replace with your EmailJS template ID
-    const userID = "NnCBTXo_Lb5n6mb8S"; // Replace with your EmailJS user ID
+    const serviceID = "service_cja2s17";
+    const templateID = "template_i01zyfh";
+    const userID = "e8W6hJlaDBpjDWRA_";
 
-    emailjs.send(serviceID, templateID, formData, userID)
+    const emailData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      ...formData,
+    };
+
+    emailjs.send(serviceID, templateID, emailData, userID)
       .then((response) => {
         console.log("Email sent successfully!", response.status, response.text);
         alert("You have successfully booked this car for rent from HyperRentals!");
@@ -147,10 +177,15 @@ const BookingForm = () => {
           rows={5}
           value={formData.comments}
           onChange={handleChange}
-          placeholder="write a message"
+          placeholder="Write a message"
         ></textarea>
       </FormGroup>
 
+      <div className="text-end mt-5">
+        <button type="submit" style={{ backgroundColor: "red", color: "white"}}>
+          Reserve Now
+        </button>
+      </div>
     </Form>
   );
 };
